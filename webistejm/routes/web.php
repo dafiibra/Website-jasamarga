@@ -12,3 +12,4 @@ Route::get('validation', [ValidationController::class,'show']);
 Route::get('/dashboard', [DashboardController::class, 'index']);
 Route::post('/upload', [DashboardController::class, 'store']);
 #Route::get('/dashboard', 'App\Http\Controllers\DashboardController@index'); ini masih perlu diperbaiki
+Route::post('validation/fetch_data', 'App\Http\Controllers\ValidationController@fetch_data')->name('validation.fetch_data');
