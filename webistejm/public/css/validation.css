@@ -19,6 +19,12 @@ body {
     font-weight: 700;
 }
 
+.btn-bottom {
+    justify-self: center;
+    align-self: end;
+    text-align: end;
+}
+
 nav {
     display: flex;
     justify-content: center;
@@ -65,4 +71,22 @@ nav {
 .table {
     border: 1px solid #c0c0c0;
     border-radius: 10px;
+}
+
+tr, td {
+    font-family: 'Inter';
+    text-align: center;
+    vertical-align: middle;
+}
+
+.btn {
+    margin: 4px;
+}
+
+.bi-x {
+    padding-right: 8px;
+}
+
+.bi-check {
+    padding-right: 8px;
 }

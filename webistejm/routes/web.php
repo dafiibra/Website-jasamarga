@@ -8,3 +8,4 @@ Route::get('/', function () {
 });
 
 Route::get('validation', [ValidationController::class,'show']);
+Route::post('validation/fetch_data', 'App\Http\Controllers\ValidationController@fetch_data')->name('validation.fetch_data');
