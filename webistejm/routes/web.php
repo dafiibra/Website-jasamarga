@@ -8,8 +8,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('validation', [ValidationController::class,'show']);
+// Route::get('validation', [ValidationController::class,'show']);
 Route::get('/dashboard', [DashboardController::class, 'index']);
 Route::post('/upload', [DashboardController::class, 'store']);
 #Route::get('/dashboard', 'App\Http\Controllers\DashboardController@index'); ini masih perlu diperbaiki
-Route::post('validation/fetch_data', 'App\Http\Controllers\ValidationController@fetch_data')->name('validation.fetch_data');
+Route::get('validation', [ValidationController::class,'fetch_data'])->name('validation.fetch_data');
+Route::patch('validation/{id_deteksi}/approve', [ValidationController::class,'approveResult']);
+Route::patch('validation/{id_deteksi}/reject', [ValidationController::class,'rejectResult']);
