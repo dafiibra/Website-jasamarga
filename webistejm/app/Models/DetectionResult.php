@@ -9,4 +9,5 @@ class DetectionResult extends Model
 {
     use HasFactory;
     protected $table = 'detection_results';
+    protected $primaryKey = 'id_deteksi';
 }
