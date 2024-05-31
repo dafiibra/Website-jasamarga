@@ -16,7 +16,7 @@
                 @csrf
               <h2>Hi Roadster!</h2>
               <label for="Username"></label>
-              <input type="text" name="text" class="form-control"placeholder="Username">
+              <input type="text" name="text" class="form-control"placeholder="Username" autofocus>
               <label for="Fullname"></label>
               <input type="text" name="fullname"class="form-control" placeholder="Fullname">
               <label for="Division"></label>
@@ -32,7 +32,7 @@
         </div>
 
         <div class="right">
-            <img src="{{ asset('login.jpg') }}" alt="">
+            <!-- <img src="{{ asset('login.jpg') }}" alt=""> -->
         </div>
     </div>
 

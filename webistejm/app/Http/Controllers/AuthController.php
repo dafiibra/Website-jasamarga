@@ -18,9 +18,9 @@ class AuthController extends Controller
             "fullname"=> "required",
             "password"=> "required",
         ]);
-      
-    }
 
+    }
+    
     function register()
     {
         return view('auth/register');

@@ -11,7 +11,7 @@
     <div class="judul"><h1>Dashboard Visual AI Pothole Detection</h1></div>
 
     <div class="logo">
-    <img src="{{ asset('/logojsmr.png') }}" alt="Login Image">
+    <!-- <img src="{{ asset('/logojsmr.png') }}" alt="Login Image"> -->
     </div>
     <div class="container">
         <div class="login">
@@ -22,7 +22,7 @@
               <input type="text" name="text" class="form-control"placeholder="Username">
               <label for="Password"></label>
               <input type="password" name="password" class="form-control" placeholder="Password"> 
-              <button href="#">Sign In</button>
+              <button href="/dashboard">Sign In</button>
               
               <div class="forgot">
                 <p>
@@ -38,7 +38,7 @@
         </div>
 
         <div class="right">
-        <img src="{{ asset('/login.jpg') }}" alt="Login Image">
+        <!-- <img src="{{ asset('/login.jpg') }}" alt="Login Image"> -->
         </div>
     </div>
 

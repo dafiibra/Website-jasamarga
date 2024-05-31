@@ -19,6 +19,7 @@ Route::patch('validation/{id_deteksi}/reject', [ValidationController::class,'rej
 //Login Route
 Route::get('/login', [AuthController::class, "Login"])->name("login");
 Route::post('/login', [AuthController::class,"LoginPost"])->name("login.post");
+
 //Register Route
 Route::get('/register', [AuthController::class, "register"])->name("register");
 Route::post('/register', [AuthController::class,"RegisterPost"])->name("register.post");
