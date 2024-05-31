@@ -1,62 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pothole Detection List</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="{{ asset('css/validation.css') }}">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-</head>
-<body>
+@extends('layouts.validation_page')
 
-  <!-- Header -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-light sticky">
-      <h2 class="title">Dashboard Visual AI Pothole Detection</h2>
-  </nav>
+@section('title', 'Pothole Detection List')
 
-  <!-- Filter -->
-  <div class="container-fluid mt-5">
-    <div class="row justify-content-center">
-        <div class="col-lg-12">
-            <div class="filter-container">
-              <p class="filter-title">Filter:</p>
-            </div>
-        </div>
-    </div>
-  </div>
-
-  <!-- Table -->
+@section('content')
   <div class="container-fluid mt-5">
     <div class="row justify-content-center">
       <div class="col-lg-12">
         <div class="table-container">
           <p class="table-title">Pothole Detection List</p>
             <div class="table-responsive">
-              <table class="table table-bordered">
+              <table class="table table-bordered display" id="table">
                 <thead>
-                  <tr>
-                    <th scope="col">Number</th>
+                  <tr class="table-row">
+                    <th scope="col">No.</th>
                     <th scope="col">Image</th>
                     <th scope="col">ID</th>
                     <th scope="col">latlong</th>
                     <th scope="col">action</th>
                   </tr>
                 </thead>
-                <tbody>
-                  @foreach($results as $key => $result)
-                  <tr>
-                    <td>{{$key + 1}}</td>
-                    <td><img src="{{$result->image_url}}" alt="Image"></td>
-                    <td>{{$result['id_deteksi']}}</td>
-                    <td>{{$result['latlong']}}</td>
-                    <td>{{$result['action']}}</td>
-                  </tr>
-                  @endforeach
-                </tbody>
               </table>
             </div>
         </div>
@@ -64,7 +26,131 @@
     </div>
   </div>
 
-  <!-- Bootstrap Bundle with Popper -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+  <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="confirmationModalLabel">Confirmation</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Are you sure you want to perform this action?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary" id="confirmButton">Confirm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Datatables Scripts -->
+  <script>
+    $(document).ready(function(){
+      var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+      $('.input-daterange').datepicker({
+        todayBtn: 'linked',
+        format: 'yyyy-mm-dd',
+        autoclose: true
+      });
+
+      fetch_data('', '', 'All');
+
+      $('#area').on('change', function() {
+        var from_date = $('#from_date').val();
+        var to_date = $('#to_date').val();
+        var area = $('#area option:selected').val();
+        fetch_data(from_date, to_date, area);
+      });
+
+      function fetch_data(from_date = '', to_date = '', area = '') {
+        $('#table').DataTable({
+          destroy: true,
+          processing: true,
+          serverSide: true,
+          searching: false,
+          ajax: {
+            url: '{{ route("validation.fetch_data") }}',
+            data: {'from_date':from_date, 'to_date':to_date, 'area':area},
+          },
+          columns: [
+            {
+              data: null,
+              render: function (data, type, row, meta) {
+                return meta.row + meta.settings._iDisplayStart + 1;
+              }
+            },
+            {
+              data:'image_url',
+              name:'image_url',
+              "render": function (data, type, row, meta) {
+                return '<img src="' + data + '" alt="Image">';
+              }
+            },
+            {
+              data:'id_deteksi',
+              name:'id_deteksi'
+            },
+            {
+              data:'latlong',
+              name:'latlong'
+            },
+            {
+              data: null,
+              render: function (data, type, row) {
+                return '<button type="button" class="btn btn-primary btn-sm approve-btn" data-id="' + row.id_deteksi + '"><i class="bi bi-check mr-1"></i>Approve</button>' +
+                        '<button type="button" class="btn btn-danger btn-sm reject-btn" data-id="' + row.id_deteksi + '"><i class="bi bi-x mr-1"></i>Reject</button>';
+              }
+            }
+          ]
+        });
+      }
+
+      $('#refresh').click(function(){
+        $('#from_date').val('');
+        $('#to_date').val('');
+        $('#area').val('');
+        fetch_data('', '', 'All');
+      });
+    });
+
+    $(document).ready(function() {
+    var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+      $('#table').on('click', '.approve-btn, .reject-btn', function() {
+        var resultId = $(this).data('id');
+        var action = $(this).hasClass('approve-btn') ? 'approve' : 'reject';
+        
+        var clickedButton = $(this);
+
+        // Show confirmation modal
+        $('#confirmationModal').modal('show').one('click', '#confirmButton', function() {
+            // Send Ajax request
+            $.ajax({
+              url: '/validation/' + resultId + '/' + action,
+              type: 'PATCH',
+              dataType: 'json',
+              headers: {
+                'X-CSRF-TOKEN': csrfToken
+              },
+              success: function(response) {
+                if (response.success) {
+                  // Remove row from table
+                  $('#table').DataTable().row(clickedButton.closest('tr')).remove().draw();
+                  $('#confirmationModal').modal('hide');
+                } else {
+                  alert('Failed to update result.');
+                }
+            },
+            error: function(xhr, status, error) {
+              console.error(xhr.responseText);
+            }
+          });
+        });
+      });
+    });
+  </script>  
+@endsection
