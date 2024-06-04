@@ -59,7 +59,7 @@
 
       fetch_data('', '', 'All');
 
-      $('#area').on('change', function() {
+      $('#filter').click(function() {
         var from_date = $('#from_date').val();
         var to_date = $('#to_date').val();
         var area = $('#area option:selected').val();

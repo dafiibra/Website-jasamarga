@@ -33,6 +33,16 @@
                   @endforeach
               </select>
               </div>
+              <div class="col" style="padding-top: 8px;">
+              <label for="repair_progress" class="input-group input-group-addon form-label">Penanganan</label>
+              <select name="repair_progress" id="repair_progress" class="form-select">
+                  <option value="">Choose</option>
+                  <option value="All">All</option>
+                  <option value="0">0%</option>
+                  <option value="50">50%</option>
+                  <option value="100">100%</option>
+              </select>
+              </div>
               <div class="col-auto btn-bottom mb-1">
                 <button type="button" name="filter" id="filter" class="btn btn-sm btn-primary" style="border-color:#283978; background-color: #283978; color:white;">Filter</button>
                 <button type="button" name="refresh" id="refresh" class="btn btn-link btn-sm" style="color: #283978;"><i class="bi bi-x mr-1" style="padding-right:0px; margin-bottom: 0px;"></i>Clear</button>

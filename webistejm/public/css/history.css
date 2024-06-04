@@ -1,0 +1,86 @@
+body {
+    background-color: #DBEAFE; 
+ }
+ 
+ .filter-container {
+     border-radius: 10px;
+     padding: 28px;
+     margin-bottom: 2px;
+     margin-left: 8px;
+     margin-right: 8px;
+     background-color: white;
+ }
+ 
+ .filter-title {
+     font-family: 'Inter';
+     color: #283978;
+     font-size: 16px;
+     font-weight: 700;
+ }
+ 
+ .btn-bottom {
+     align-self: end;
+     text-align: end;
+     padding-bottom: 8px;
+ }
+ 
+ .title {
+     font-family: 'Poppins', sans-serif;
+     font-weight: 600;
+     color: #283978;
+     font-size: 36px;
+     width: 100%;
+     justify-content: start;
+     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.03);
+ }
+ 
+ .table-title {
+     font-family: 'Inter';
+     color: #283978;
+     font-size: 24px;
+     font-weight: 700;
+ }
+ 
+ .table-container {
+     border-radius: 10px;
+     padding: 28px;
+     margin-bottom: 2px;
+     margin-left: 8px;
+     margin-right: 8px;
+     background-color: white;
+ }
+ 
+ .table-container table {
+     width: 100%;
+ }
+ 
+ .table {
+     border: 1px solid #c0c0c0;
+     border-radius: 10px;
+     text-align: center;
+     align-content: center;
+ }
+ 
+ #table th {
+     text-align: center;
+ }
+ 
+ #table td {
+     vertical-align: middle;
+ }
+ 
+ .btn {
+     margin: 4px;
+ }
+ 
+ .bi-x {
+     padding-right: 8px;
+ }
+ 
+ .bi-check {
+     padding-right: 8px;
+ }
+ 
+ #from_date, #to_date {
+     text-align: left !important;
+ }
