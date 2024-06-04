@@ -15,14 +15,14 @@
     </div>
     <div class="container">
         <div class="login">
-            <form method="post" action="{{route('login.post')}}">
+            <form method="POST" action="{{route('login.post')}}">
                 @csrf
               <h2>Sign In</h2>
               <label for="Username"></label>
-              <input type="text" name="text" class="form-control"placeholder="Username">
+              <input type="text" name="username" class="form-control"placeholder="Username" required autofocus>
               <label for="Password"></label>
               <input type="password" name="password" class="form-control" placeholder="Password"> 
-              <button href="/dashboard">Sign In</button>
+              <button type="submit" href="/dashboard">Sign In</button>
               
               <div class="forgot">
                 <p>
