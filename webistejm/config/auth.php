@@ -40,7 +40,13 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        'inspektor' => [
+            'driver' => 'session',
+            'provider' => 'inspektors',
+        ],
     ],
+
 
     /*
     |--------------------------------------------------------------------------
@@ -65,10 +71,10 @@ return [
             'model' => env('AUTH_MODEL', App\Models\User::class),
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'inspektors' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\inspektor::class,
+        ],
     ],
 
     /*
