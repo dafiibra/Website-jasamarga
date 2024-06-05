@@ -15,7 +15,9 @@ use App\Http\Controllers\DashboardController;
 // Route::get('validation', [ValidationController::class,'show']);
 Route::get('/dashboard', [DashboardController::class, 'index'])->name("dashboard");
 Route::post('/upload', [DashboardController::class, 'store']);
-#Route::get('/dashboard', 'App\Http\Controllers\DashboardController@index'); ini masih perlu diperbaiki
+Route::get('/dashboard/filter', [DashboardController::class, 'filterData'])->name('dashboard.filter');
+
+
 Route::get('validation', [ValidationController::class,'fetch_data'])->name('validation.fetch_data');
 Route::patch('validation/{id_deteksi}/approve', [ValidationController::class,'approveResult']);
 Route::patch('validation/{id_deteksi}/reject', [ValidationController::class,'rejectResult']);
