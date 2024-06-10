@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
-use App\Models\DetectionResult;
+use App\Models\DataHasilDeteksi;
 use DataTables;
 use Illuminate\Support\Facades\DB;
 
@@ -15,18 +15,18 @@ class HistoryController extends Controller
     {
         
         if($request->ajax()){
-            $dataQuery = DB::table('detection_results')->where('is_valid', 'accepted');
+            $dataQuery = DB::table('data_hasil_deteksi')->where('is_valid', 'approved');
 
             if ($request->area != 'All') {
-                $dataQuery->where('area', $request->area)->where('is_valid', 'accepted')->get();
+                $dataQuery->where('area', $request->area)->where('is_valid', 'approved')->get();
             }
 
             if ($request->repair_progress != 'All') {
-                $dataQuery->where('repair_progress', $request->repair_progress)->where('is_valid', 'accepted')->get();
+                $dataQuery->where('repair_progress', $request->repair_progress)->where('is_valid', 'approved')->get();
             }
 
             if ($request->from_date!= '' && $request->to_date != '') {
-                $dataQuery->whereBetween('created_at', array($request->from_date, $request->to_date))->where('is_valid', 'accepted')->get();
+                $dataQuery->whereBetween('created_at', array($request->from_date, $request->to_date))->where('is_valid', 'approved')->get();
             }
 
             $data = $dataQuery->get();
@@ -42,13 +42,13 @@ class HistoryController extends Controller
     {
         // Validate the input
         $request->validate([
-            'id_deteksi' => 'required|integer|exists:detection_results,id_deteksi',
+            'id_deteksi' => 'required|string|exists:data_hasil_deteksi,id_deteksi',
             'progress' => 'required|in:0%,50%,100%',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
     
         // Find the item by ID
-        $item = DetectionResult::findorFail($request->id_deteksi);
+        $item = DataHasilDeteksi::findorFail($request->id_deteksi);
     
         // Update the repair progress field
         $progress = $request->input('progress');
@@ -58,17 +58,22 @@ class HistoryController extends Controller
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $filename = time().'_'.$file->getClientOriginalName();
-            $path = $file->storeAs('uploads', $filename, 'public');
+            
     
             if ($progress === '50%') {
+                $path = $file->storeAs('uploads/fiftypct', $filename, 'public');
                 $item->fifty_pct_image_url = '/storage/' . $path;
             } elseif ($progress === '100%') {
+                $path = $file->storeAs('uploads/onehudpct', $filename, 'public');
                 $item->onehud_pct_image_url = '/storage/' . $path;
             }
         }
     
         // Save the updated item to the database
         $item->save();
+
+        // update the updated_at
+        $item->touch();
     
         // Return a success response
         return response()->json(['success' => 'Progress updated successfully']);

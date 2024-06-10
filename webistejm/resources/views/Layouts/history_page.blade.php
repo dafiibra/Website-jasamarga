@@ -3,9 +3,13 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Default Title')</title>
+    <!-- Line Icons -->
+    <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
+
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     
@@ -13,59 +17,66 @@
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     
-    <!-- Bootstrap CSS -->
+    <!-- Bootstrap -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    
-    <!-- Optional: Include Bootstrap 5 CSS if needed. Remove one if not required. -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     
-    <!-- Custom CSS -->
+    <!-- Custom -->
     <link rel="stylesheet" href="{{ asset('css/history.css') }}">
+    <link rel="stylesheet"  href='{{asset("css/dashboard.css")}}'>
     
-    <!-- Bootstrap Datepicker CSS -->
+    <!-- Datepicker -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.10.0/dist/css/bootstrap-datepicker3.min.css">
     
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    
-    <!-- Bootstrap Icons -->
+    <!-- Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css" rel="stylesheet">
     
-    <!-- DataTables CSS -->
+    <!-- DataTables -->
     <link href="https://cdn.datatables.net/2.0.7/css/dataTables.dataTables.min.css" rel="stylesheet">
     
-    <!-- Dropzone CSS -->
+    <!-- Dropzone -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.0/min/dropzone.min.css">
 </head>
 
 <body>
-    <div class="container-fluid">
-        <div class="row">
-            @include('layouts.sidebar')
-            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-0">
-                @include('layouts.history_filter')
-                @yield('content')
+<div class="wrapper">
+    @include('layouts.sidebar')
+        <div class="main">
+            <nav class="navbar navbar-expand px-4 py-3 d-flex bg-white">
+                <div class="navbar-collapse collapse">
+                <h3 class="fw-bold">Dashboard Visual AI Pothole Detection</h3>
+                </div>
+                <img src="{{ asset('img/logo.png') }}" alt="My Image" style="width: 50px; height: auto; float: right;">
+            </nav>
+            <main class="content px-3 py-4">
+                <div class="container-fluid">
+                    <div class="mb-3">
+                        <div class="row mb-3">
+                        @include('layouts.history_filter')
+                        </div>
+                        <div class="row">
+                        @yield('content')
+                        </div>
+                    </div>
+                </div>
             </main>
         </div>
     </div>
-    <!-- Bootstrap JS -->
+    <!-- Bootstrap -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    
-    <!-- Optional: Include Bootstrap 5 JS if needed. Remove one if not required. -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
-    <!-- Bootstrap Datepicker JS -->
+    <!-- Datepicker -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.10.0/dist/js/bootstrap-datepicker.min.js"></script>
     
-    <!-- DataTables JS -->
+    <!-- DataTables -->
     <script src="https://cdn.datatables.net/2.0.7/js/dataTables.min.js"></script>
     
-    <!-- Dropzone JS -->
+    <!-- Dropzone -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.0/min/dropzone.min.js"></script>
-    
+
+    <!-- Custom Script -->
+    <script src="{{asset('dashboard.js')}}"></script>
 </body>
 
 </html>
