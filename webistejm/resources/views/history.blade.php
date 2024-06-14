@@ -249,8 +249,12 @@
     });
 
     $('.close, .btn-secondary').on('click', function() {
-      resetFields(); // Reset all fields in the form
+      resetFields();
       $('#updateModal').modal('hide');
+    });
+
+    $('#updateModal').on('hidden.bs.modal', function() {
+      resetFields();
     });
   
   });

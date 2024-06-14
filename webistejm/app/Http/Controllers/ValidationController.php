@@ -36,8 +36,10 @@ class ValidationController extends Controller
 
     public function approveResult($id_deteksi)
     {
+        $user = session('user');
         $result = DataHasilDeteksi::findOrFail($id_deteksi);
         $result->is_valid = "approved";
+        $result->validated_by = $user->username;
         $result->save();
         $result->touch();
         return response()->json(['success' => true]);
@@ -45,8 +47,10 @@ class ValidationController extends Controller
 
     public function rejectResult($id_deteksi)
     {
+        $user = session('user');
         $result = DataHasilDeteksi::findOrFail($id_deteksi);
         $result->is_valid = "rejected";
+        $result->validated_by = $user->username;
         $result->save();
         $result->touch();
         return response()->json(['success' => true]);
