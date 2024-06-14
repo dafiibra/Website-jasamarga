@@ -11,26 +11,28 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('detection_results', function (Blueprint $table) {
-            $table->id('id_deteksi');
+        Schema::create('data_hasil_deteksi', function (Blueprint $table) {
+            $table->string('id_deteksi')->primary();
             $table->string('image_url');
             $table->string('latlong');
-            $table->enum('is_valid', ['requested', 'accepted', 'declined']);
+            $table->enum('is_valid', ['requested', 'approved', 'rejected'])->default('requested');
             $table->string('area');
-            $table->string('validated_by');
-            $table->integer('id_inspeksi');
-            $table->integer('repair_progress');
+            $table->string('validated_by')->nullable();
+            $table->string('id_inspeksi');
+            $table->integer('repair_progress')->default(0);
             $table->string('fifty_pct_image_url')->nullable();
             $table->string('onehud_pct_image_url')->nullable();
             $table->timestamps();
         });
     }
 
-    /**
+ /**
      * Reverse the migrations.
+     *
+     * @return void
      */
-    public function down(): void
+    public function down()
     {
-        Schema::dropIfExists('detection_results');
+        Schema::dropIfExists('data_hasil_deteksi');
     }
 };

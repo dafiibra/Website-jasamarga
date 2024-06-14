@@ -21,6 +21,7 @@ class DataHasilDeteksi extends Model
         'fifty_pct_image_url',
         'onehud_pct_image_url',
     ];
+    protected $primaryKey = 'id_deteksi';
 
     public function inspeksi()
     {

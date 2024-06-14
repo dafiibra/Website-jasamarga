@@ -5,19 +5,19 @@
             <div class="filter-container p-3 pb-0 bg-white shadow-sm rounded">
                 <div class="row">
                     <div class="col-md-3 mb-3">
-                        <div class="form-group">
+                        <div class="form-group w-100">
                             <label for="from_date" class="form-label fw-bold">Start Date</label>
                             <input type="date" name="from_date" id="from_date" class="form-control"/>
                         </div>
                     </div>
                     <div class="col-md-3 mb-3">
-                        <div class="form-group">
+                        <div class="form-group w-100">
                             <label for="to_date" class="form-label fw-bold">End Date</label>
                             <input type="date" name="to_date" id="to_date" class="form-control"/>
                         </div>
                     </div>
-                    <div class="col-md-3 mb-3">
-                        <div class="form-group">
+                    <div class="col-md-2 mb-3">
+                        <div class="form-group w-100">
                             <label for="area" class="form-label fw-bold">Area</label>
                             <select name="area" id="area" class="form-select">
                                 <option value="">Choose</option>
@@ -28,11 +28,23 @@
                             </select>
                         </div>
                     </div>
+                    <div class="col-md-2 mb-3">
+                      <div class="form-group w-100">
+                        <label for="repair_progress" class="form-label fw-bold">Penanganan</label>
+                        <select name="repair_progress" id="repair_progress" class="form-select">
+                            <option value="">Choose</option>
+                            <option value="All">All</option>
+                            <option value="0">0%</option>
+                            <option value="50">50%</option>
+                            <option value="100">100%</option>
+                        </select>
+                      </div>
+                    </div>
                     <div class="col d-flex align-items-end mb-3 pb-3">
-                        <button type="button" name="filter" id="filter" class="me-2 btn w-100 text-white" style="background-color: #3f58b4;">
+                        <button type="button" name="filter" id="filter" class="me-2 btn text-white" style="background-color: #3f58b4;">
                           Filter
                         </button>
-                        <button type="button" name="refresh" id="refresh" class="btn w-100" style="color: #283978;">
+                        <button type="button" name="refresh" id="refresh" class="btn" style="color: #283978;">
                           <i class="bi bi-x mr-1" style="padding-right:0px;"></i>
                           Clear
                         </button>
@@ -42,3 +54,6 @@
         </div>
     </div>
 </div>
+
+
+

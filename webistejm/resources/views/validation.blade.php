@@ -3,24 +3,24 @@
 @section('title', 'Pothole Detection List')
 
 @section('content')
-  <div class="container-fluid mt-5">
+  <div class="container-fluid w-100">
     <div class="row justify-content-center">
       <div class="col-lg-12">
-        <div class="table-container">
+        <div class="table-container m-0 p-3 bg-white shadow-sm rounded">
           <p class="table-title">Pothole Detection List</p>
-            <div class="table-responsive">
-              <table class="table table-bordered display" id="table">
-                <thead>
-                  <tr class="table-row">
-                    <th scope="col">No.</th>
-                    <th scope="col">Image</th>
-                    <th scope="col">ID</th>
-                    <th scope="col">latlong</th>
-                    <th scope="col">action</th>
-                  </tr>
-                </thead>
-              </table>
-            </div>
+          <div class="table-responsive">
+            <table class="table table-bordered display" id="table">
+              <thead>
+                <tr class="table-row">
+                  <th scope="col">No.</th>
+                  <th scope="col">Image</th>
+                  <th scope="col">ID</th>
+                  <th scope="col">latlong</th>
+                  <th scope="col">action</th>
+                </tr>
+              </thead>
+            </table>
+          </div>
         </div>
       </div>
     </div>
@@ -47,110 +47,110 @@
   </div>
 
   <!-- Datatables Scripts -->
-  <script>
-    $(document).ready(function(){
-      var csrfToken = $('meta[name="csrf-token"]').attr('content');
-
-      $('.input-daterange').datepicker({
-        todayBtn: 'linked',
-        format: 'yyyy-mm-dd',
-        autoclose: true
-      });
-
-      fetch_data('', '', 'All');
-
-      $('#area').on('change', function() {
-        var from_date = $('#from_date').val();
-        var to_date = $('#to_date').val();
-        var area = $('#area option:selected').val();
-        fetch_data(from_date, to_date, area);
-      });
-
-      function fetch_data(from_date = '', to_date = '', area = '') {
-        $('#table').DataTable({
-          destroy: true,
-          processing: true,
-          serverSide: true,
-          searching: false,
-          ajax: {
-            url: '{{ route("validation.fetch_data") }}',
-            data: {'from_date':from_date, 'to_date':to_date, 'area':area},
-          },
-          columns: [
-            {
-              data: null,
-              render: function (data, type, row, meta) {
-                return meta.row + meta.settings._iDisplayStart + 1;
-              }
-            },
-            {
-              data:'image_url',
-              name:'image_url',
-              "render": function (data, type, row, meta) {
-                return '<img src="' + data + '" alt="Image">';
-              }
-            },
-            {
-              data:'id_deteksi',
-              name:'id_deteksi'
-            },
-            {
-              data:'latlong',
-              name:'latlong'
-            },
-            {
-              data: null,
-              render: function (data, type, row) {
-                return '<button type="button" class="btn btn-primary btn-sm approve-btn" data-id="' + row.id_deteksi + '"><i class="bi bi-check mr-1"></i>Approve</button>' +
-                        '<button type="button" class="btn btn-danger btn-sm reject-btn" data-id="' + row.id_deteksi + '"><i class="bi bi-x mr-1"></i>Reject</button>';
-              }
-            }
-          ]
-        });
-      }
-
-      $('#refresh').click(function(){
-        $('#from_date').val('');
-        $('#to_date').val('');
-        $('#area').val('');
-        fetch_data('', '', 'All');
-      });
-    });
-
-    $(document).ready(function() {
+<script>
+  $(document).ready(function(){
     var csrfToken = $('meta[name="csrf-token"]').attr('content');
 
-      $('#table').on('click', '.approve-btn, .reject-btn', function() {
-        var resultId = $(this).data('id');
-        var action = $(this).hasClass('approve-btn') ? 'approve' : 'reject';
-        
-        var clickedButton = $(this);
+    $('.input-daterange').datepicker({
+      todayBtn: 'linked',
+      format: 'yyyy-mm-dd',
+      autoclose: true
+    });
 
-        // Show confirmation modal
-        $('#confirmationModal').modal('show').one('click', '#confirmButton', function() {
-            // Send Ajax request
-            $.ajax({
-              url: '/validation/' + resultId + '/' + action,
-              type: 'PATCH',
-              dataType: 'json',
-              headers: {
-                'X-CSRF-TOKEN': csrfToken
-              },
-              success: function(response) {
-                if (response.success) {
-                  // Remove row from table
-                  $('#table').DataTable().row(clickedButton.closest('tr')).remove().draw();
-                  $('#confirmationModal').modal('hide');
-                } else {
-                  alert('Failed to update result.');
-                }
-            },
-            error: function(xhr, status, error) {
-              console.error(xhr.responseText);
+    fetch_data('', '', 'All');
+
+    $('#filter').click(function() {
+      var from_date = $('#from_date').val();
+      var to_date = $('#to_date').val();
+      var area = $('#area option:selected').val();
+      fetch_data(from_date, to_date, area);
+    });
+
+    function fetch_data(from_date = '', to_date = '', area = '') {
+      $('#table').DataTable({
+        destroy: true,
+        processing: true,
+        serverSide: true,
+        searching: false,
+        responsive: true,
+        ajax: {
+          url: '{{ route("validation.fetch_data") }}',
+          data: {'from_date':from_date, 'to_date':to_date, 'area':area},
+        },
+        columns: [
+          {
+            data: null,
+            render: function (data, type, row, meta) {
+              return meta.row + meta.settings._iDisplayStart + 1;
             }
-          });
+          },
+          {
+            data:'image_url',
+            name:'image_url',
+            "render": function (data, type, row, meta) {
+              return '<img src="' + data + '" alt="Image">';
+            }
+          },
+          {
+            data:'id_deteksi',
+            name:'id_deteksi'
+          },
+          {
+            data:'latlong',
+            name:'latlong'
+          },
+          {
+            data: null,
+            render: function (data, type, row) {
+              return '<button type="button" class="btn btn-primary btn-sm approve-btn m-2" data-id="' + row.id_deteksi + '"><i class="bi bi-check mr-1"></i>Approve</button>' +
+                      '<button type="button" class="btn btn-danger btn-sm reject-btn m-2" data-id="' + row.id_deteksi + '"><i class="bi bi-x mr-1"></i>Reject</button>';
+            }
+          }
+        ]
+      });
+    }
+
+    $('#refresh').click(function(){
+      $('#from_date').val('');
+      $('#to_date').val('');
+      $('#area').val('');
+      fetch_data('', '', 'All');
+    });
+
+    $('#table').on('click', '.approve-btn, .reject-btn', function() {
+      var resultId = $(this).data('id');
+      var action = $(this).hasClass('approve-btn') ? 'approve' : 'reject';
+      
+      var clickedButton = $(this);
+
+      $('#confirmationModal').modal('show').one('click', '#confirmButton', function() {
+          $.ajax({
+            url: '/validation/' + resultId + '/' + action,
+            type: 'PATCH',
+            dataType: 'json',
+            headers: {
+              'X-CSRF-TOKEN': csrfToken
+            },
+            success: function(response) {
+              if (response.success) {
+                // Remove row from table
+                $('#table').DataTable().row(clickedButton.closest('tr')).remove().draw();
+                $('#confirmationModal').modal('hide');
+              } else {
+                alert('Failed to update result.');
+              }
+          },
+          error: function(xhr, status, error) {
+            console.error(xhr.responseText);
+          }
         });
       });
     });
-  </script>  
+
+    $('.close, .btn-secondary').on('click', function() {
+      $('#confirmationModal').modal('hide');
+    });
+  });
+</script>
+  
 @endsection
