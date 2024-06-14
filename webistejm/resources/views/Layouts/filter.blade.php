@@ -1,27 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<h1 class="d-flex bg-white p-3">Dashboard Visual AI Pothole Detection</h1>
-<div class="container mt-3">
-    <div class="bg-light p-3 rounded mb-4">
-        <form class="row g-3">
-            <div class="col-md-4">
-                <label for="startDate" class="form-label">Start Date</label>
-                <input type="date" class="form-control" id="startDate" name="startDate">
+<!-- Filter -->
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-lg-12">
+            <div class="filter-container p-3 bg-white shadow-sm rounded">
+                <div class="row">
+                    <div class="col-md-3 mb-3">
+                        <div class="form-group">
+                            <label for="from_date" class="form-label fw-bold">Start Date</label>
+                            <input type="date" name="from_date" id="from_date" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="form-group">
+                            <label for="to_date" class="form-label fw-bold">End Date</label>
+                            <input type="date" name="to_date" id="to_date" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="form-group">
+                            <label for="area" class="form-label fw-bold">Area</label>
+                            <select name="area" id="area" class="form-select">
+                                <option value="">Choose</option>
+                                <option value="All">All</option>
+                                <option value="area">Area</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3 d-flex align-items-end mb-3">
+                        <button type="button" name="refresh" id="refresh" class="me-2 btn w-100 text-white" style="background-color: #3f58b4;">
+                            <i class="bi bi-x-lg mr-1"></i>Filter
+                        </button>
+                        <button type="button" name="refresh" id="refresh" class="btn w-100 text-white" style="background-color: #3f58b4;">
+                            <i class="bi bi-x-lg mr-1"></i>Clear
+                        </button>
+                    </div>
+                </div> 
             </div>
-            <div class="col-md-4">
-                <label for="endDate" class="form-label">End Date</label>
-                <input type="date" class="form-control" id="endDate" name="endDate">
-            </div>
-            <div class="col-md-4">
-                <label for="area" class="form-label">Area</label>
-                <select id="area" class="form-select">
-                    <option selected>Choose...</option>
-                    <option value="Jagorawi">Jagorawi</option>
-                </select>
-            </div>
-        </form>
+        </div>
     </div>
-    <div>
-
-</html>
+</div>
