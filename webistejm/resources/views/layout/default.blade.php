@@ -26,7 +26,7 @@
               
               <div class="forgot">
                 <p>
-                    <a href="">Forgot Password</a>  
+                    <a href="{{ route('forget.password') }}">Forgot Password</a>  
                 </p>
               </div>
               <div class="create">
@@ -38,7 +38,7 @@
         </div>
 
         <div class="right">
-        <!-- <img src="{{ asset('/login.jpg') }}" alt="Login Image"> -->
+        <img src="{{ asset('img/login.jpg') }}" alt="Login Image">
         </div>
     </div>
 
