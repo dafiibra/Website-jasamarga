@@ -4,12 +4,13 @@ use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ValidationController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ForgetPasswordManager;
 use App\Http\Controllers\HistoryController;
 
-// Route::middleware("auth")->group(function(){
-//     Route::view("/","Welcome")->name("dashboard");
+Route::middleware("auth")->group(function(){
+    Route::view("/","Welcome")->name("dashboard");
     
-// });
+});
 
 // Route::get('validation', [ValidationController::class,'show']);
 Route::get('/dashboard', [DashboardController::class, 'index'])->name("dashboard")->middleware('check.session');
@@ -28,6 +29,12 @@ Route::post('/login', [AuthController::class,"LoginPost"])->name("login.post");
 //Register Route
 Route::get('/register', [AuthController::class, "register"])->name("register");
 Route::post('/register', [AuthController::class,"RegisterPost"])->name("register.post");
+
+//Forget Password
+Route::get('/forget-password', [ForgetPasswordManager::class, "forgetPassword"])->name("forget.password");
+Route::post('/forget-password', [ForgetPasswordManager::class, "forgetPasswordPost"])->name("forget.password.post");
+Route::get('/reset-password/{token}', [ForgetPasswordManager::class, "resetPassword"])->name("reset.password");
+Route::post('/reset-password', [ForgetPasswordManager::class, "resetPasswordPost"])->name("reset.password.post");
 
 // logout
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');

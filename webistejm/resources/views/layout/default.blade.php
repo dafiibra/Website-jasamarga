@@ -27,7 +27,7 @@
               
               <div class="forgot">
                 <p>
-                    <a href="">Forgot Password</a>  
+                    <a href="{{ route('forget.password') }}">Forgot Password</a>  
                 </p>
               </div>
               <div class="create">
