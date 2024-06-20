@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<!-- Header -->
-<h1 class="d-flex bg-white p-3 title">Dashboard Visual AI Pothole Detection</h1>
-
 <!-- Filter -->
 <div class="container-fluid mt-5">
     <div class="row justify-content-center">

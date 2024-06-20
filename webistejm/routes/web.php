@@ -5,18 +5,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ValidationController;
 use App\Http\Controllers\DashboardController;
 
-// Route::middleware("auth")->group(function(){
-//     Route::view("/","Welcome")->name("dashboard");
-    
-// });
-
-
-
-// Route::get('validation', [ValidationController::class,'show']);
-Route::get('/dashboard', [DashboardController::class, 'index'])->name("dashboard");
-Route::post('/upload', [DashboardController::class, 'store']);
+//Dashboard
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 Route::get('/dashboard/filter', [DashboardController::class, 'filterData'])->name('dashboard.filter');
-
 
 Route::get('validation', [ValidationController::class,'fetch_data'])->name('validation.fetch_data');
 Route::patch('validation/{id_deteksi}/approve', [ValidationController::class,'approveResult']);
