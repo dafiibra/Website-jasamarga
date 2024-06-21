@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Default Title')</title>
     <!-- Line Icons -->
@@ -19,15 +19,21 @@
     
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ asset('css/validation.css') }}">
-    <link rel="stylesheet"  href='{{ asset("css/dashboard.css") }}'>
+    <link rel="stylesheet"  href='{{asset("css/dashboard.css")}}'>
+
+    <!-- Datepicker -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.10.0/dist/css/bootstrap-datepicker3.min.css">
 
     <!-- Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Datatables -->
     <link href="https://cdn.datatables.net/2.0.7/css/dataTables.dataTables.min.css" rel="stylesheet">
-</head>
+    <script src="https://cdn.datatables.net/2.0.7/js/dataTables.min.js"></script>
 
+    <!-- Datepicker -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.10.0/dist/js/bootstrap-datepicker.min.js"></script>
+</head>
 
 <body>
     <div class="wrapper">
@@ -42,9 +48,6 @@
             <main class="content px-3 py-4">
                 <div class="container-fluid">
                     <div class="mb-3">
-                        <div class="row mb-3">
-                        @include('layouts.validation_filter')
-                        </div>
                         <div class="row">
                         @yield('content')
                         </div>

@@ -6,6 +6,7 @@ use App\Models\inspektor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Models\LogActivity; 
 
 class AuthController extends Controller
 {
@@ -22,12 +23,25 @@ class AuthController extends Controller
         ]);
 
         $credentials = $request->only('username', 'password');
+
         if (Auth::guard('inspektor')->attempt($credentials)) {
-            session(['user' => Auth::guard('inspektor')->user()]);
+            $user = Auth::guard('inspektor')->user();
+            session(['user' => $user]);
+
+            // Insert log activity
+            LogActivity::create([
+                'username' => $user->username,
+                'activity_name' => 'User Login',
+                'ip_address' => $request->ip(),
+                'login_time' => now(),
+            ]);
+
             return redirect()->intended(route('dashboard'));
         }
-        return redirect()->route('login')->with('error', 'Username atau Password Anda Salah');
+
+        return redirect(route('login'))->with("error", "Login Failed");
     }
+
 
     
     function register()
@@ -37,11 +51,11 @@ class AuthController extends Controller
 
     function registerPost(Request $request){
         $request->validate([
-            "username"=> "required",
+            "username"=> "required|unique:inspektor",
             "fullname"=> "required",
             "division"=> "required",
-            "email"=> "required",
-            "password"=> "required",
+            "email"=> "required|email|unique:inspektor",
+            "password"=> "required|min:8",
         ]);
 
         $user = new inspektor();
@@ -70,5 +84,4 @@ class AuthController extends Controller
         session()->flush();
         return redirect()->route('login');
     }
-   
 }

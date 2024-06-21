@@ -13,20 +13,6 @@ class CreateDashboardsTable extends Migration
      */
     public function up()
     {
-        Schema::create('data_hasil_deteksi', function (Blueprint $table) {
-            $table->id('id_deteksi');
-            $table->string('image_url');
-            $table->string('latlong');
-            $table->enum('is_valid', ['requested', 'accepted', 'declined']);
-            $table->string('area');
-            $table->string('validated_by');
-            $table->integer('id_inspeksi');
-            $table->integer('repair_progress');
-            $table->string('fifty_pct_image_url')->nullable();
-            $table->string('onehud_pct_image_url')->nullable();
-            $table->timestamps();
-        });
-
         Schema::create('inspeksi', function (Blueprint $table) {
             $table->id('id_inspeksi');
             $table->integer('jumlah_pothole');

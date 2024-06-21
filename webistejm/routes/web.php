@@ -6,6 +6,7 @@ use App\Http\Controllers\ValidationController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ForgetPasswordManager;
 use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\UserManagementController;
 
 Route::middleware("auth")->group(function(){
     Route::view("/","Welcome")->name("dashboard");
@@ -41,3 +42,10 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('history', [HistoryController::class,'fetch_data'])->name('history.fetch_data')->middleware('check.session');
 Route::post('history/update', [HistoryController::class, 'update'])->name('history.update')->middleware('check.session');
+
+Route::get('/user', [UserManagementController::class, 'index'])->name('user-management');
+Route::get('/approve-user/{id}', [UserManagementController::class, 'approveUser'])->name('approve-user');
+Route::get('/reject-user/{id}', [UserManagementController::class, 'rejectUser'])->name('reject-user');
+Route::get('/view-user/{id}', [UserManagementController::class, 'viewUser'])->name('view-user');
+
+Route::get('/user-data-json', [UserManagementController::class, 'getUserDataJson'])->name('user-data-json');

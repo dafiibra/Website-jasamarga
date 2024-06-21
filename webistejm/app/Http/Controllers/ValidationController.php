@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\DataHasilDeteksi;
 use DataTables;
 use Illuminate\Support\Facades\DB;
+use Spatie\ImageOptimizer\OptimizerChainFactory;
 
 class ValidationController extends Controller
 {
@@ -40,6 +41,7 @@ class ValidationController extends Controller
         $result = DataHasilDeteksi::findOrFail($id_deteksi);
         $result->is_valid = "approved";
         $result->validated_by = $user->username;
+        $result->validated_timestamp = now();
         $result->save();
         $result->touch();
         return response()->json(['success' => true]);
@@ -51,6 +53,7 @@ class ValidationController extends Controller
         $result = DataHasilDeteksi::findOrFail($id_deteksi);
         $result->is_valid = "rejected";
         $result->validated_by = $user->username;
+        $result->validated_timestamp = now();
         $result->save();
         $result->touch();
         return response()->json(['success' => true]);
