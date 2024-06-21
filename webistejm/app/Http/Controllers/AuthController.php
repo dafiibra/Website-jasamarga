@@ -15,14 +15,16 @@ class AuthController extends Controller
         return view('auth/login');
     }
 
-    function loginPost(Request $request){
+    public function loginPost(Request $request)
+    {
         $request->validate([
-            "username"=> "required",
-            "password"=> "required",
+            "username" => "required",
+            "password" => "required",
         ]);
-        
+
         $credentials = $request->only('username', 'password');
-        if (Auth::guard('inspektor')->attempt($credentials)) 
+
+        if (Auth::guard('inspektor')->attempt($credentials)) {
             $user = Auth::guard('inspektor')->user();
             session(['user' => $user]);
 
@@ -33,9 +35,14 @@ class AuthController extends Controller
                 'ip_address' => $request->ip(),
                 'login_time' => now(),
             ]);
-        return redirect(route(name:"login"))->with("error","Login Failed");
 
+            return redirect()->intended(route('dashboard'));
+        }
+
+        return redirect(route('login'))->with("error", "Login Failed");
     }
+
+
     
     function register()
     {
@@ -77,5 +84,4 @@ class AuthController extends Controller
         session()->flush();
         return redirect()->route('login');
     }
-   
 }

@@ -30,8 +30,7 @@ class DataHasilDeteksi extends Model
         'fifty_pct_update_timestamp' => 'datetime',
         'onehud_pct_update_timestamp' => 'datetime',
     ];
-    protected $primaryKey = 'id_deteksi';
-
+    
     public function inspeksi()
     {
         return $this->belongsTo(Inspeksi::class, 'id_inspeksi', 'id_inspeksi');
