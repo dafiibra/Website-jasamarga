@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\DataHasilDeteksi;
 use DataTables;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class HistoryController extends Controller
 {
@@ -58,14 +60,20 @@ class HistoryController extends Controller
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $filename = time().'_'.$file->getClientOriginalName();
-            
+            $path = '';
     
             if ($progress === '50%') {
                 $path = $file->storeAs('uploads/fiftypct', $filename, 'public');
                 $item->fifty_pct_image_url = '/storage/' . $path;
+                $item->fifty_pct_update_timestamp = now();
             } elseif ($progress === '100%') {
                 $path = $file->storeAs('uploads/onehudpct', $filename, 'public');
                 $item->onehud_pct_image_url = '/storage/' . $path;
+                $item->onehud_pct_update_timestamp = now();
+            }
+
+            if ($path) {
+                $this->compressImage($file, $path);
             }
         }
     
@@ -77,6 +85,32 @@ class HistoryController extends Controller
     
         // Return a success response
         return response()->json(['success' => 'Progress updated successfully']);
-    }    
+    }
     
+    private function compressImage($file, $path)
+{
+    // Get the full path to the stored image
+    $fullPath = storage_path('app/public/' . $path);
+
+    // Create an image resource from the file
+    $src = imagecreatefromjpeg($file->getRealPath());
+
+    // Get image dimensions
+    $width = imagesx($src);
+    $height = imagesy($src);
+
+    // Create a new image with desired dimensions
+    $tmp = imagecreatetruecolor($width, $height);
+
+    // Copy and resize part of an image with resampling
+    imagecopyresampled($tmp, $src, 0, 0, 0, 0, $width, $height, $width, $height);
+
+    // Save the compressed image
+    imagejpeg($tmp, $fullPath, 50);
+
+    // Free up memory
+    imagedestroy($src);
+    imagedestroy($tmp);
+}
+
 }

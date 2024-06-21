@@ -14,15 +14,15 @@ return new class extends Migration
         Schema::create('inspektor', function (Blueprint $table) {
             $table->string('username');
             $table->string('password');
-            $table->integer('fullname');
+            $table->string('fullname');
             $table->string('email');
-            $table->integer('division');
-            $table->integer('status');
-            $table->integer('accepted_by');
+            $table->string('division');
+            $table->string('status');
+            $table->string('accepted_by');
             $table->timestamp('accepted_timestamp')->nullable();
-            $table->integer('rejected_by');
+            $table->string('rejected_by');
             $table->timestamp('rejected_timestamp')->nullable();
-            $table->integer('deleted_by');
+            $table->string('deleted_by');
             $table->timestamp('deleted_timestamp')->nullable();
             $table->timestamps();
         });

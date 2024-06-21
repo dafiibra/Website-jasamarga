@@ -18,10 +18,13 @@ return new class extends Migration
             $table->enum('is_valid', ['requested', 'approved', 'rejected'])->default('requested');
             $table->string('area');
             $table->string('validated_by')->nullable();
+            $table->string('validated_timestamp')->nullable();
             $table->string('id_inspeksi');
             $table->integer('repair_progress')->default(0);
             $table->string('fifty_pct_image_url')->nullable();
+            $table->string('fifty_pct_update_timestamp')->nullable();
             $table->string('onehud_pct_image_url')->nullable();
+            $table->string('onehud_pct_update_timestamp')->nullable();
             $table->timestamps();
         });
     }

@@ -16,10 +16,18 @@ class DataHasilDeteksi extends Model
         'is_valid',
         'area',
         'validated_by',
+        'validated_timestamp',
         'id_inspeksi',
         'repair_progress',
         'fifty_pct_image_url',
+        'fifty_pct_update_timestamp',
         'onehud_pct_image_url',
+        'onehud_pct_update_timestamp',
+    ];
+    protected $casts = [
+        'validated_timestamp' => 'datetime',
+        'fifty_pct_update_timestamp' => 'datetime',
+        'onehud_pct_update_timestamp' => 'datetime',
     ];
     protected $primaryKey = 'id_deteksi';
 
