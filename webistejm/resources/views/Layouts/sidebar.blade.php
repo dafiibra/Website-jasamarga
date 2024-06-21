@@ -9,13 +9,13 @@
     </div>
     <ul class="sidebar-nav">
         <li class="sidebar-item">
-            <a href="#" class="sidebar-link">
+            <a href="/dashboard" class="sidebar-link">
                 <i class="lni lni-dashboard"></i>
                 <span>Dashboard</span>
             </a>
         </li>
         <li class="sidebar-item">
-            <a href="#" class="sidebar-link">
+            <a href="/validation" class="sidebar-link">
                 <i class="lni lni-check-box"></i>
                 <span>Validation</span>
             </a>

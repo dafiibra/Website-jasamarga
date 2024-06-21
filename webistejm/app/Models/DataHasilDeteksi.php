@@ -10,6 +10,7 @@ class DataHasilDeteksi extends Model
     use HasFactory;
 
     protected $table = 'data_hasil_deteksi';
+    protected $primaryKey = 'id_deteksi';
     protected $fillable = [
         'image_url',
         'latlong',

@@ -28,6 +28,7 @@
     <link href="https://cdn.datatables.net/2.0.7/css/dataTables.dataTables.min.css" rel="stylesheet">
 </head>
 
+
 <body>
     <div class="wrapper">
     @include('layouts.sidebar')
