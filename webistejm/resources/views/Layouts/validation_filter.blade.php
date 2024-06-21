@@ -30,11 +30,11 @@
                     </div>
                     <div class="col d-flex align-items-end mb-3 pb-3">
                         <button type="button" name="filter" id="filter" class="me-2 btn w-100 text-white" style="background-color: #3f58b4;">
-                          Filter
+                            Filter
                         </button>
                         <button type="button" name="refresh" id="refresh" class="btn w-100" style="color: #283978;">
-                          <i class="bi bi-x mr-1" style="padding-right:0px;"></i>
-                          Clear
+                            <i class="bi bi-x mr-1" style="padding-right:0px;"></i>
+                            Clear
                         </button>
                     </div>
                 </div> 

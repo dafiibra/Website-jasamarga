@@ -4,29 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ asset('css/forgetpass.css') }}">
-    <title>@yield("title", "forget password")</title>
+    <title>@yield("title", "Forget Password")</title>
 </head>
 <body>
-  
-    <div class="judul"><h1>Dashboard Visual AI Pothole Detection</h1></div>
-
-    <div class="logo">
-    <!-- <img src="{{ asset('/logojsmr.png') }}" alt="Login Image"> -->
-    </div>
+    <nav class="judul">
+        <div class="navbar-brand">
+            <img src="{{ asset('img/logojsmr.png') }}" alt="Logo">
+            <h1>Dashboard Visual AI Pothole Detection</h1>
+        </div>
+    </nav>
     <div class="container">
         <div class="forget">
             <form method="POST" action="{{route('forget.password.post')}}">
                 @csrf
-              <h2>Forget Password</h2>
-              <label for="email"></label>
-              <input type="text" name="email" class="form-control"placeholder="Email" required autofocus>
-              <button>Send an Email</button>
+                <h2>Forget Password</h2>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" name="email" class="form-control" placeholder="Email" required autofocus>
+                </div>
+                <button type="submit">Send an Email</button>
+                <div class="back-to-login">
+                    <a href="{{ route('login') }}">Back to Login</a>
+                </div>
             </form>
-            <div class="right">
-            <img src="{{ asset('img/login.jpg') }}" alt="">
         </div>
+        <div class="right">
+            <div class="image-container">
+                <img src="{{ asset('img/login.jpg') }}" alt="Login Image">
+            </div>
         </div>
     </div>
-
 </body>
 </html>

@@ -14,19 +14,21 @@ class AuthController extends Controller
         return view('auth/login');
     }
 
-    function loginPost(Request $request){
+    public function loginPost(Request $request)
+    {
         $request->validate([
-            "username"=> "required",
-            "password"=> "required",
+            "username" => "required",
+            "password" => "required",
         ]);
-        $credentials = $request->only('username', 'password');
-        if(Auth::guard('inspektor')->attempt($credentials)){
-            session(['user' => Auth::guard('inspektor')->user()]);
-            return redirect()->intended(route(name:"dashboard"));
-        }
-        return redirect(route(name:"login"))->with("error","Login Failed");
 
+        $credentials = $request->only('username', 'password');
+        if (Auth::guard('inspektor')->attempt($credentials)) {
+            session(['user' => Auth::guard('inspektor')->user()]);
+            return redirect()->intended(route('dashboard'));
+        }
+        return redirect()->route('login')->with('error', 'Username atau Password Anda Salah');
     }
+
     
     function register()
     {

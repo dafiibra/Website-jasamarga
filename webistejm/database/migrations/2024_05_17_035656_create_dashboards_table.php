@@ -13,17 +13,6 @@ class CreateDashboardsTable extends Migration
      */
     public function up()
     {
-        Schema::create('dashboards', function (Blueprint $table) {
-            $table->id();
-            $table->string('area');
-            $table->integer('total_findings');
-            $table->integer('verified_findings');
-            $table->decimal('accuracy', 5, 2);
-            $table->decimal('precision', 5, 2);
-            $table->decimal('recall', 5, 2);
-            $table->timestamps();
-        });
-
         Schema::create('data_hasil_deteksi', function (Blueprint $table) {
             $table->id('id_deteksi');
             $table->string('image_url');

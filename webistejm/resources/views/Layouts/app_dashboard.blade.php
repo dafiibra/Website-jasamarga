@@ -25,7 +25,7 @@
             <main class="content p-4">
                 <div class="container-fluid">
                     <div class="row mb-3">
-                        @include('layouts.filter')
+                        @include('layouts.dashboard_filter')
                     </div>
                     <div class="row">
                         @yield('content')

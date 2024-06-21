@@ -1,5 +1,6 @@
 <aside id="sidebar">
     <div class="d-flex">
+        <!-- Sidebar Toggle Button -->
         <button class="toggle-btn" type="button">
             <i class="lni lni-grid-alt"></i>
         </button>
@@ -21,7 +22,7 @@
             </a>
         </li>
         <li class="sidebar-item">
-            <a href="#" class="sidebar-link">
+            <a href="/history" class="sidebar-link">
                 <i class="lni lni-folder"></i>
                 <span>History</span>
             </a>
