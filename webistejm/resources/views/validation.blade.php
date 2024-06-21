@@ -51,12 +51,6 @@
   $(document).ready(function(){
     var csrfToken = $('meta[name="csrf-token"]').attr('content');
 
-    $('.input-daterange').datepicker({
-      todayBtn: 'linked',
-      format: 'yyyy-mm-dd',
-      autoclose: true
-    });
-
     fetch_data('', '', 'All');
 
     $('#filter').click(function() {
