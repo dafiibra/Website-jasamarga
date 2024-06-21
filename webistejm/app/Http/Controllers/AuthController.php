@@ -21,6 +21,7 @@ class AuthController extends Controller
         ]);
         $credentials = $request->only('username', 'password');
         if(Auth::guard('inspektor')->attempt($credentials)){
+            session(['user' => Auth::guard('inspektor')->user()]);
             return redirect()->intended(route(name:"dashboard"));
         }
         return redirect(route(name:"login"))->with("error","Login Failed");
@@ -61,5 +62,11 @@ class AuthController extends Controller
 
     }
     
+    public function logout()
+    {
+        Auth::guard('inspektor')->logout();
+        session()->flush();
+        return redirect()->route('login');
+    }
    
 }

@@ -2,17 +2,16 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
-        sans-serif;
-}
-
-h1 {
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  }
+  
+  h1 {
     text-align: top;
     margin: 8px;
     padding: 10;
     top: 10px;
-}
-.judul {
+  }
+  .judul {
     color: #283978;
     font-family: Arial, sans-serif;
     background: #ffff;
@@ -24,17 +23,17 @@ h1 {
     top: 5%;
     left: 23%;
     transform: translate(-50%, -50%);
-}
-
-body {
+  }
+  
+  body {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     background: #dbeafe;
-}
-
-.container {
+  }
+  
+  .container {
     width: 1101px;
     height: 562px;
     top: 139px;
@@ -47,18 +46,18 @@ body {
     align-items: center;
     justify-content: space-between;
     overflow: hidden;
-}
-
-.login {
+  }
+  
+  .forget {
     width: 400px;
-}
-
-form {
+  }
+  
+  form {
     width: 250px;
     margin: 60px auto;
-}
-
-input {
+  }
+  
+  input {
     width: 325px;
     height: 56px;
     top: 285px;
@@ -68,36 +67,18 @@ input {
     border-radius: 4px 0px 0px 0px;
     border: 1px 0px 0px 0px;
     opacity: 0px;
-}
-
-h2 {
+  }
+  
+  h2 {
     margin: 20px;
     font-size: 2em;
     color: #283978;
     text-align: top;
     font-weight: bolder;
     line-height: 20px;
-}
-
-p {
-    text-align: center;
-    margin: 1opx;
-}
-.right {
-    flex: 1;
-    width: 100%;
-    height: 100%;
-}
-.right img {
-    width: 100%;
-    height: 100%;
-    border-radius: 10px 0px 0px 0px;
-    border-top-right-radius: 15px;
-    border-bottom-right-radius: 15px;
-    object-fit: cover;
-}
-
-input {
+  }
+  
+  input {
     width: 100%;
     margin: 2px;
     border: none;
@@ -105,8 +86,9 @@ input {
     padding: 8px;
     border-radius: 5px;
     border: 1px solid gray;
-}
-button {
+  }
+
+  button {
     border: none;
     outline: none;
     padding: 8px;
@@ -116,39 +98,8 @@ button {
     margin-top: 20px;
     border-radius: 5px;
     border-color: #283978;
-}
-
-button:hover {
-    background: #283978;
-}
-
-.cek {
-    display: inline-flex;
-    align-items: center;
-    font-size: 16px;
-    padding: 0;
-    margin-top: 10px; /* Add margin to position it relative to the input form */
-}
-
-.checkbox-container {
-    display: inline-block;
-    vertical-align: middle;
-    margin-right: 5px; /* Adjust margin to bring the text closer */
-}
-
-.checkbox-input {
-    margin: 0;
-}
-
-/* .cek {
-      display: inline-block;
-    padding: 1px 2px;
-    border: none;
-    font-size: 16px;
   }
   
-  .checkbox-container {
-    display: inline-block;
-    vertical-align: middle;
-    margin-right: 1px;
-  } */
+  button:hover {
+    background: #283978;
+  }

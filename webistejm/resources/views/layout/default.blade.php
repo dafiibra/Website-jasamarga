@@ -8,10 +8,11 @@
 </head>
 <body>
   @yield("content")
+
     <div class="judul"><h1>Dashboard Visual AI Pothole Detection</h1></div>
 
     <div class="logo">
-    <!-- <img src="{{ asset('/logojsmr.png') }}" alt="Login Image"> -->
+    <!-- <img src="{{ asset('img/logojsmr.png') }}" alt="Login Image"> -->
     </div>
     <div class="container">
         <div class="login">
@@ -26,7 +27,7 @@
               
               <div class="forgot">
                 <p>
-                    <a href="">Forgot Password</a>  
+                    <a href="{{ route('forget.password') }}">Forgot Password</a>  
                 </p>
               </div>
               <div class="create">
@@ -36,9 +37,8 @@
               </div>
             </form>
         </div>
-
         <div class="right">
-        <!-- <img src="{{ asset('/login.jpg') }}" alt="Login Image"> -->
+        <img src="{{ asset('img/login.jpg') }}" alt="Login Image">
         </div>
     </div>
 
