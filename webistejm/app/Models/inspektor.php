@@ -10,7 +10,10 @@ use Illuminate\Notifications\Notifiable;
 class inspektor extends  Authenticatable
 {
     use HasFactory, Notifiable;
+    protected $primaryKey = 'username';
     protected $table = 'inspektor';
+    public $incrementing = false; 
+    protected $keyType = 'string'; 
     /**
      * The attributes that are mass assignable.
      *
@@ -20,6 +23,16 @@ class inspektor extends  Authenticatable
         'username',
         'email',
         'password',
+        'fullname',
+        'email',
+        'division',
+        'status',
+        'accepted_by',
+        'accepted_timestamp',
+        'rejected_by',
+        'rejected_timestamp',
+        'deleted_by',
+        'deleted_timestamp',
     ];
 
     /**
@@ -37,6 +50,11 @@ class inspektor extends  Authenticatable
      *
      * @return array<string, string>
      */
+
+    protected $dates = [
+        'accepted_timestamp', 'rejected_timestamp', 'deleted_timestamp'
+    ];
+    
     protected function casts(): array
     {
         return [

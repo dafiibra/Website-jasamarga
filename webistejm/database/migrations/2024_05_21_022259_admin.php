@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('admin', function (Blueprint $table) {
             $table->string('username');
             $table->string('password');
-            $table->integer('fullname');
+            $table->string('fullname');
             $table->string('email');
-            $table->integer('division');
-            $table->integer('status');
+            $table->string('division');
+            $table->string('status');
             $table->timestamps();
         });
     }
