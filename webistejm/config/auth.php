@@ -45,6 +45,12 @@ return [
             'driver' => 'session',
             'provider' => 'inspektors',
         ],
+
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admin',
+        ],
+
     ],
 
 
@@ -74,6 +80,11 @@ return [
         'inspektors' => [
             'driver' => 'eloquent',
             'model' => App\Models\inspektor::class,
+        ],
+
+        'admin' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\admin::class,
         ],
     ],
 

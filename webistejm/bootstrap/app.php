@@ -13,9 +13,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
             'check.session' => \App\Http\Middleware\CheckSession::class,
-            'auth:admin' => \App\Http\Middleware\AdminMiddleware::class,
-        
-            
+            'auth.admin' => \App\Http\Middleware\AdminMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

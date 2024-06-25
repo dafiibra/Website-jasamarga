@@ -20,24 +20,6 @@ class UserManagementController extends Controller
         
     }
 
-    public function getUserDataJson()
-    {
-        // Retrieve user data
-        $registrationRequests = DB::table('inspektor')->where('status', 'requested')->get();
-        $approvedUsers = inspektor::where('status', 'approved')->get();
-        $loginActivities = LogActivity::orderBy('login_time', 'desc')->take(10)->get();
-
-        // Combine all data into an array
-        $data = [
-            'registrationRequests' => $registrationRequests,
-            'approvedUsers' => $approvedUsers,
-            'loginActivities' => $loginActivities,
-        ];
-
-        // Return the data as JSON
-        return response()->json($data);
-    }
-
     public function approveUser($id)
     {
         $user = inspektor::findOrFail($id);

@@ -65,7 +65,7 @@ return [
     |
     */
 
-    'timezone' => env('APP_TIMEZONE', 'Asia/Jakarta'),
+    'timezone' => 'Asia/Jakarta',
 
     /*
     |--------------------------------------------------------------------------
@@ -126,5 +126,4 @@ return [
     'aliases' => [
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
     ]
-
 ];
