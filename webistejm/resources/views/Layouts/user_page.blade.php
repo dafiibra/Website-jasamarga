@@ -66,6 +66,7 @@
 
     <!-- Custom Script -->
     <script src="{{asset('dashboard.js')}}"></script>
+    @include('layouts.logging')
 </body>
 
 </html>

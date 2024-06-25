@@ -6,7 +6,8 @@ use App\Models\inspektor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Models\LogActivity; 
+use App\Models\LogActivity;
+use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
@@ -28,6 +29,9 @@ class AuthController extends Controller
             $user = Auth::guard('inspektor')->user();
             session(['user' => $user]);
 
+            // Log for session data check
+            Log::info('User logged in', ['user' => session('user')]);
+
             // Insert log activity
             LogActivity::create([
                 'username' => $user->username,
@@ -39,10 +43,15 @@ class AuthController extends Controller
             return redirect()->intended(route('dashboard'));
         }
 
-        return redirect(route('login'))->with("error", "Login Failed");
+        return redirect(route('login'))->with("error", "Username atau Password salah");
     }
 
-
+    public function logout()
+    {
+        Auth::guard('inspektor')->logout();
+        session()->flush();
+        return redirect()->route('login');
+    }
     
     function register()
     {
@@ -78,10 +87,4 @@ class AuthController extends Controller
 
     }
     
-    public function logout()
-    {
-        Auth::guard('inspektor')->logout();
-        session()->flush();
-        return redirect()->route('login');
-    }
 }
