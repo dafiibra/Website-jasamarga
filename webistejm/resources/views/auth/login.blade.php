@@ -26,15 +26,19 @@
                 {{ session('error') }}
               </div>
             @endif
+            @if ($errors->has('login'))
+              <div class="alert alert-danger">
+                {{ $errors->first('login') }}
+              </div>
+            @endif
+
             <label for="username"></label>
             <input type="text" name="username" class="form-control" placeholder="Username" required autofocus>
             <label for="password"></label>
             <input type="password" name="password" class="form-control" placeholder="Password">
             <div class="cek">
-              <div class="checkbox-container">
-                <input type="checkbox" name="remember" id="remember" class="checkbox-input">
-              </div>
-              <label for="remember">Remember Me</label>
+              
+              
             </div>
             <button type="submit">Sign In</button>
             

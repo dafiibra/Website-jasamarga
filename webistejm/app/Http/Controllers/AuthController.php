@@ -29,8 +29,16 @@ class AuthController extends Controller
             $user = Auth::guard('inspektor')->user();
             session(['user' => $user]);
 
-            // Log for session data check
-            Log::info('User logged in', ['user' => session('user')]);
+            if ($user->status == 'requested') {
+                Auth::guard('inspektor')->logout();
+                return redirect()->route('login')->withErrors(['login' => 'Your account has not been approved yet.']);
+            }
+
+            
+            if ($user->status == 'rejected') {
+                Auth::guard('inspektor')->logout();
+                return redirect()->route('login')->withErrors(['login' => 'Your account is rejected by admin contact admin for more information.']);
+            }
 
             // Insert log activity
             LogActivity::create([
@@ -43,7 +51,15 @@ class AuthController extends Controller
             return redirect()->intended(route('dashboard'));
         }
 
-        return redirect(route('login'))->with("error", "Username atau Password salah");
+        //admin
+        if (Auth::guard('admin')->attempt($credentials)) {
+            $user = Auth::guard('admin')->user();
+            session(['user' => $user]);
+            
+            return redirect()->intended(route('dashboard'));
+        }   
+
+        return redirect(route('login'))->with("error", "Invalid username or password");
     }
 
     public function logout()

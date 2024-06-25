@@ -19,11 +19,11 @@ return new class extends Migration
             $table->string('division');
             $table->string('status');
             $table->string('accepted_by');
-            $table->timestamp('accepted_timestamp')->nullable();
+            $table->string('accepted_timestamp')->nullable();
             $table->string('rejected_by');
-            $table->timestamp('rejected_timestamp')->nullable();
+            $table->string('rejected_timestamp')->nullable();
             $table->string('deleted_by');
-            $table->timestamp('deleted_timestamp')->nullable();
+            $table->string('deleted_timestamp')->nullable();
             $table->timestamps();
         });
     }

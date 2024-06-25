@@ -6,27 +6,41 @@ use Illuminate\Http\Request;
 use App\Models\inspektor;
 use App\Models\LogActivity;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class AdminController extends Controller
 {
-    public function approve(Request $request, $id)
+    public function approve($username)
     {
-        $inspektor = inspektor::findOrFail($id);
+        $user = session('user');
+        Log::info('User from session:', (array) $user); // Log session content
+        $inspektor = inspektor::findOrFail($username);
         $inspektor->status = 'approved';
-        $inspektor->accepted_by = auth()->user()->username;
+        $inspektor->accepted_by = $user->username;
         $inspektor->accepted_timestamp = now();
         $inspektor->save();
+
+        Log::info('Inspektor before save:', $inspektor->toArray()); // Log model before save
+        $inspektor->save();
+        Log::info('Inspektor after save:', $inspektor->toArray()); // Log model after save
 
         return response()->json(['message' => 'User approved']);
     }
 
-    public function reject(Request $request, $id)
+    public function reject($id)
     {
+        $user = session('user');
+        Log::info('User from session:', (array) $user); // Log session content
         $inspektor = inspektor::findOrFail($id);
         $inspektor->status = 'rejected';
-        $inspektor->rejected_by = auth()->user()->username;
+        $inspektor->rejected_by = $user->username;
         $inspektor->rejected_timestamp = now();
         $inspektor->save();
+
+        Log::info('Inspektor before save:', $inspektor->toArray()); // Log model before save
+        $inspektor->save();
+        Log::info('Inspektor after save:', $inspektor->toArray()); // Log model after save
+
 
         return response()->json(['message' => 'User rejected']);
     }

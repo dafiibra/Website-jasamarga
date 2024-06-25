@@ -27,12 +27,14 @@
                 <span>History</span>
             </a>
         </li>
+        @auth('admin')
         <li class="sidebar-item">
-            <a href="#" class="sidebar-link log-link" data-activity="User Management Page Accessed">
+            <a href="/user" class="sidebar-link">
                 <i class="lni lni-users"></i>
                 <span>User Management</span>
             </a>
         </li>
+        @endauth
     </ul>
     <div class="sidebar-footer">
         <a href="{{ route('logout') }}" class="sidebar-link log-link" data-activity="Logout Button Clicked">

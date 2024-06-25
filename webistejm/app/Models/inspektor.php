@@ -35,6 +35,12 @@ class inspektor extends  Authenticatable
         'deleted_timestamp',
     ];
 
+    protected $casts = [
+        'accepted_timestamp' => 'datetime',
+        'rejected_timestamp' => 'datetime',
+        'deleted_timestamp' => 'datetime',
+    ];
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -50,15 +56,10 @@ class inspektor extends  Authenticatable
      *
      * @return array<string, string>
      */
-
-    protected $dates = [
-        'accepted_timestamp', 'rejected_timestamp', 'deleted_timestamp'
-    ];
     
     protected function casts(): array
     {
         return [
-            'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
     }
