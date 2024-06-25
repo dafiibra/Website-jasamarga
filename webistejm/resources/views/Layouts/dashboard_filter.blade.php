@@ -33,7 +33,7 @@
                         <button type="button" id="filterButton" class="btn w-100 text-white" style="background-color: #3f58b4;">
                             <i class="bi bi-filter"></i> Filter
                         </button>
-                        <button type="button" id="clearButton" class="btn w-100 text-white" style="background-color: #3f58b4;">
+                        <button type="button" id="clearButton" class="btn w-100 text-black" style="background-color: #F0F8FF;">
                             <i class="bi bi-x-lg"></i> Clear
                         </button>
                     </div>
@@ -42,7 +42,6 @@
         </div>
     </div>
 </div>
-
 
 <!-- Add necessary JS scripts -->
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -57,6 +56,18 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('Please fill in all filter fields.');
             return;
         }
+
+        // Log activity when filter button is clicked
+        axios.post('{{ route('log.activity') }}', {
+                activity_name: 'Dashboard Filter Button Clicked',
+                _token: "{{ csrf_token() }}"
+            })
+            .then(response => {
+                console.log('Activity logged successfully');
+            })
+            .catch(error => {
+                console.error('Error logging activity:', error);
+            });
 
         axios.get('{{ route('dashboard.filter') }}', {
                 params: {
@@ -83,6 +94,18 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('start_date').value = '';
         document.getElementById('end_date').value = '';
         document.getElementById('area').value = '';
+
+        // Log activity when clear button is clicked
+        axios.post('{{ route('log.activity') }}', {
+                activity_name: 'Dashboard Clear Button Clicked',
+                _token: "{{ csrf_token() }}"
+            })
+            .then(response => {
+                console.log('Activity logged successfully');
+            })
+            .catch(error => {
+                console.error('Error logging activity:', error);
+            });
 
         // Fetch data for the current year when the clear button is clicked
         fetchCurrentYearData();

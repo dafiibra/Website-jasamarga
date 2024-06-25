@@ -54,6 +54,35 @@
         </div>
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('filter').addEventListener('click', function() {
+        // Log activity when validation filter button is clicked
+        axios.post('{{ route('log.activity') }}', {
+                activity_name: 'History Filter Button Clicked',
+                _token: "{{ csrf_token() }}"
+            })
+            .then(response => {
+                console.log('Activity logged successfully');
+            })
+            .catch(error => {
+                console.error('Error logging activity:', error);
+            });
+    });
 
-
-
+    document.getElementById('refresh').addEventListener('click', function() {
+        // Log activity when validation clear button is clicked
+        axios.post('{{ route('log.activity') }}', {
+                activity_name: 'History Clear Button Clicked',
+                _token: "{{ csrf_token() }}"
+            })
+            .then(response => {
+                console.log('Activity logged successfully');
+            })
+            .catch(error => {
+                console.error('Error logging activity:', error);
+            });
+    });
+});
+</script>

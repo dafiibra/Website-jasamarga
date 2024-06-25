@@ -7,6 +7,8 @@ use App\Models\Inspeksi;
 use App\Models\DataHasilDeteksi;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -18,6 +20,13 @@ class DashboardController extends Controller
         $inspeksi = Inspeksi::whereYear('tanggal_inspeksi', $currentYear)->get();
         $inspeksiIds = $inspeksi->pluck('id_inspeksi');
         $dataHasilDeteksi = DataHasilDeteksi::whereIn('id_inspeksi', $inspeksiIds)->get();
+
+        if (!session()->has('user')) {
+            return redirect()->route('login')->with('error', 'Session expired, please login again.');
+        }
+
+        $user = session('user');
+        Log::info('Username from session in DashboardController', ['username' => $user['username']]);
 
         // List of areas
         $areas = [
@@ -51,7 +60,7 @@ class DashboardController extends Controller
         foreach ($inspeksi as $inspeksiItem) {
             $monthIndex = Carbon::parse($inspeksiItem->tanggal_inspeksi)->month - 1;
             $monthTotalTemuan = $dataHasilDeteksi->where('id_inspeksi', $inspeksiItem->id_inspeksi)->count();
-            $monthVerified = $dataHasilDeteksi->where('id_inspeksi', $inspeksiItem->id_inspeksi)->where('is_valid', 'accepted')->count();
+            $monthVerified = $dataHasilDeteksi->where('id_inspeksi', $inspeksiItem->id_inspeksi)->where('is_valid', 'approved')->count();
             $totalTemuan[$monthIndex] += $monthTotalTemuan;
             $verified[$monthIndex] += $monthVerified;
 
@@ -85,7 +94,7 @@ class DashboardController extends Controller
             'recall' => $recall,
         ];
 
-        return view('dashboard', compact('data', 'areas'));
+        return view('dashboard', compact('data', 'areas', 'user'));
     }
 
     public function filterData(Request $request)
@@ -99,11 +108,11 @@ class DashboardController extends Controller
 
             // Filter inspeksi based on date range and area
             $inspeksiQuery = Inspeksi::whereBetween('tanggal_inspeksi', [$startDate, $endDate]);
-            
+
             if ($area && $area !== 'All') {
                 $inspeksiQuery->where('area', $area);
             }
-            
+
             $inspeksi = $inspeksiQuery->get();
 
             Log::info('Inspeksi data', ['inspeksi' => $inspeksi]);
@@ -129,7 +138,7 @@ class DashboardController extends Controller
             foreach ($inspeksi as $inspeksiItem) {
                 $monthIndex = $monthsRange->search(Carbon::parse($inspeksiItem->tanggal_inspeksi)->format('F'));
                 $monthTotalTemuan = $dataHasilDeteksi->where('id_inspeksi', $inspeksiItem->id_inspeksi)->count();
-                $monthVerified = $dataHasilDeteksi->where('id_inspeksi', $inspeksiItem->id_inspeksi)->where('is_valid', 'accepted')->count();
+                $monthVerified = $dataHasilDeteksi->where('id_inspeksi', $inspeksiItem->id_inspeksi)->where('is_valid', 'approved')->count();
                 $totalTemuan[$monthIndex] += $monthTotalTemuan;
                 $verified[$monthIndex] += $monthVerified;
 
@@ -172,5 +181,3 @@ class DashboardController extends Controller
         }
     }
 }
-
-?>
