@@ -7,21 +7,32 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ForgetPasswordManager;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\UserManagementController;
+use App\Http\Controllers\LogActivityController;
+
 
 Route::middleware("auth")->group(function(){
     Route::view("/","Welcome")->name("dashboard");
-    
 });
 
-// Route::get('validation', [ValidationController::class,'show']);
-Route::get('/dashboard', [DashboardController::class, 'index'])->name("dashboard")->middleware('check.session');
-Route::post('/upload', [DashboardController::class, 'store'])->middleware('check.session');
-Route::get('/dashboard/filter', [DashboardController::class, 'filterData'])->name('dashboard.filter')->middleware('check.session');
+//Dashboard
+Route::middleware(['check.session'])->group(function () {
+    //Log-activity
+    Route::post('/log-activity', [LogActivityController::class, 'store'])->name('log.activity');
 
+    //Dashboard
+    Route::get('/dashboard', [DashboardController::class, 'index']);
+    Route::get('/dashboard/filter', [DashboardController::class, 'filterData'])->name('dashboard.filter');
 
-Route::get('validation', [ValidationController::class,'fetch_data'])->name('validation.fetch_data')->middleware('check.session');
-Route::patch('validation/{id_deteksi}/approve', [ValidationController::class,'approveResult'])->middleware('check.session');
-Route::patch('validation/{id_deteksi}/reject', [ValidationController::class,'rejectResult'])->middleware('check.session');
+    //Validation
+    Route::get('validation', [ValidationController::class,'fetch_data'])->name('validation.fetch_data');
+    Route::patch('validation/{id_deteksi}/approve', [ValidationController::class,'approveResult']);
+    Route::patch('validation/{id_deteksi}/reject', [ValidationController::class,'rejectResult']);
+
+    //History
+    Route::get('history', [HistoryController::class,'fetch_data'])->name('history.fetch_data');
+    Route::post('history/update', [HistoryController::class, 'update'])->name('history.update');
+});
+
 
 //Login Route
 Route::get('/login', [AuthController::class, "Login"])->name("login");
@@ -39,11 +50,6 @@ Route::post('/reset-password', [ForgetPasswordManager::class, "resetPasswordPost
 
 // logout
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
-
-Route::get('history', [HistoryController::class,'fetch_data'])->name('history.fetch_data')->middleware('check.session');
-Route::post('history/update', [HistoryController::class, 'update'])->name('history.update')->middleware('check.session');
-
-
 
 Route::get('/user', [UserManagementController::class, 'index'])->name('user-management')->middleware('auth.admin');
 Route::get('/approve-user/{id}', [UserManagementController::class, 'approveUser'])->name('approve-user')->middleware('auth.admin');

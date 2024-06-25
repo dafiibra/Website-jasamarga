@@ -8,13 +8,15 @@ use App\Models\DataHasilDeteksi;
 use DataTables;
 use Illuminate\Support\Facades\DB;
 use Spatie\ImageOptimizer\OptimizerChainFactory;
+use Illuminate\Support\Facades\Auth;
+
 
 class ValidationController extends Controller
 {
-
     function fetch_data(Request $request)
     {
-        
+        $user = session('user');
+
         if($request->ajax()){
             $dataQuery = DB::table('data_hasil_deteksi')->where('is_valid', 'requested');
 
@@ -31,7 +33,7 @@ class ValidationController extends Controller
             return datatables()->of($data)->make(true);
         }
 
-        return view('validation');
+        return view(('validation'), compact('user'));
 
     }
 
@@ -41,9 +43,10 @@ class ValidationController extends Controller
         $result = DataHasilDeteksi::findOrFail($id_deteksi);
         $result->is_valid = "approved";
         $result->validated_by = $user->username;
-        $result->validated_timestamp = now();
+        $result->validated_timestamp = now();   
         $result->save();
         $result->touch();
+        
         return response()->json(['success' => true]);
     }
 

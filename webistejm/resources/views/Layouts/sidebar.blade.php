@@ -10,19 +10,19 @@
     </div>
     <ul class="sidebar-nav">
         <li class="sidebar-item">
-            <a href="/dashboard" class="sidebar-link">
+            <a href="/dashboard" class="sidebar-link log-link" data-activity="Dashboard Page Accessed">
                 <i class="lni lni-dashboard"></i>
                 <span>Dashboard</span>
             </a>
         </li>
         <li class="sidebar-item">
-            <a href="/validation" class="sidebar-link">
+            <a href="/validation" class="sidebar-link log-link" data-activity="Validation Page Accessed">
                 <i class="lni lni-check-box"></i>
                 <span>Validation</span>
             </a>
         </li>
         <li class="sidebar-item">
-            <a href="/history" class="sidebar-link">
+            <a href="/history" class="sidebar-link log-link" data-activity="History Page Accessed">
                 <i class="lni lni-folder"></i>
                 <span>History</span>
             </a>
@@ -37,7 +37,7 @@
         @endauth
     </ul>
     <div class="sidebar-footer">
-        <a href="{{ route('logout') }}" class="sidebar-link">
+        <a href="{{ route('logout') }}" class="sidebar-link log-link" data-activity="Logout Button Clicked">
             <i class="lni lni-exit"></i>
             <span>Logout</span>
         </a>

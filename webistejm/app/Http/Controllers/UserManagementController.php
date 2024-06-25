@@ -12,11 +12,16 @@ class UserManagementController extends Controller
 {
     public function index()
     {
+        // Get the user object from session
+        // $username = session('user')->username;
+
         $registrationRequests = DB::table('inspektor')->where('status', 'requested')->get();
         $approvedUsers = DB::table('inspektor')->where('status', 'approved')->get();
         $loginActivities = DB::table('log_activity')->orderBy('login_time', 'desc')->take(10)->get();
 
         return view('usermanage/user', compact('registrationRequests', 'approvedUsers', 'loginActivities'));
+        //return view('usermanage/user', compact('registrationRequests', 'approvedUsers', 'loginActivities', 'username'));
+
         
     }
 

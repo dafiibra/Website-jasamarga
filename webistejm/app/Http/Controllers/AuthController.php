@@ -6,7 +6,8 @@ use App\Models\inspektor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Models\LogActivity; 
+use App\Models\LogActivity;
+use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
@@ -61,7 +62,12 @@ class AuthController extends Controller
         return redirect(route('login'))->with("error", "Invalid username or password");
     }
 
-
+    public function logout()
+    {
+        Auth::guard('inspektor')->logout();
+        session()->flush();
+        return redirect()->route('login');
+    }
     
     function register()
     {
@@ -97,10 +103,4 @@ class AuthController extends Controller
 
     }
     
-    public function logout()
-    {
-        Auth::guard('inspektor')->logout();
-        session()->flush();
-        return redirect()->route('login');
-    }
 }

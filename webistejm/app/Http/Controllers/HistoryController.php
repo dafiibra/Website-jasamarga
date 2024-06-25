@@ -12,10 +12,10 @@ use Illuminate\Support\Facades\File;
 
 class HistoryController extends Controller
 {
-
     function fetch_data(Request $request)
     {
-        
+        $user = session('user');
+
         if($request->ajax()){
             $dataQuery = DB::table('data_hasil_deteksi')->where('is_valid', 'approved');
 
@@ -36,7 +36,7 @@ class HistoryController extends Controller
             return datatables()->of($data)->make(true);
         }
 
-        return view('history');
+        return view(('history'), compact('user'));
 
     }
 

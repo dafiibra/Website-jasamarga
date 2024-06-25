@@ -18,4 +18,3 @@ class LogActivity extends Model
 
     public $timestamps = true;
 }
-
