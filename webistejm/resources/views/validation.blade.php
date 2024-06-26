@@ -111,38 +111,59 @@
       fetch_data('', '', 'All');
     });
 
-    $('#table').on('click', '.approve-btn, .reject-btn', function() {
-      var resultId = $(this).data('id');
-      var action = $(this).hasClass('approve-btn') ? 'approve' : 'reject';
-      
-      var clickedButton = $(this);
+     $('#table').on('click', '.approve-btn, .reject-btn', function() {
+        var resultId = $(this).data('id');
+        var action = $(this).hasClass('approve-btn') ? 'approve' : 'reject';
+        var activityName = action === 'approve' ? 'Validtion Approve Button Clicked' : 'Validation Reject Button Clicked';
 
-      $('#confirmationModal').modal('show').one('click', '#confirmButton', function() {
-          $.ajax({
-            url: '/validation/' + resultId + '/' + action,
-            type: 'PATCH',
-            dataType: 'json',
-            headers: {
-              'X-CSRF-TOKEN': csrfToken
-            },
-            success: function(response) {
-              if (response.success) {
-                // Remove row from table
-                $('#table').DataTable().row(clickedButton.closest('tr')).remove().draw();
-                $('#confirmationModal').modal('hide');
-              } else {
-                alert('Failed to update result.');
-              }
-          },
-          error: function(xhr, status, error) {
-            console.error(xhr.responseText);
-          }
+        axios.post('{{ route('log.activity') }}', {
+                activity_name: activityName,
+                _token: csrfToken
+            })
+            .then(response => {
+                console.log('Activity logged successfully');
+            })
+            .catch(error => {
+                console.error('Error logging activity:', error);
+            });
+
+        var clickedButton = $(this);
+        $('#confirmationModal').modal('show').one('click', '#confirmButton', function() {
+            axios.post('{{ route('log.activity') }}', {
+                    activity_name: action === 'approve' ? 'Validation Approve Confirmed' : 'Validation Reject Confirmed',
+                    _token: csrfToken
+                })
+                .then(response => {
+                    console.log('Activity logged successfully');
+                })
+                .catch(error => {
+                    console.error('Error logging activity:', error);
+                });
+
+            $.ajax({
+                url: '/validation/' + resultId + '/' + action,
+                type: 'PATCH',
+                dataType: 'json',
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken
+                },
+                success: function(response) {
+                    if (response.success) {
+                        $('#table').DataTable().row(clickedButton.closest('tr')).remove().draw();
+                        $('#confirmationModal').modal('hide');
+                    } else {
+                        alert('Failed to update result.');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
+            });
         });
-      });
     });
 
     $('.close, .btn-secondary').on('click', function() {
-      $('#confirmationModal').modal('hide');
+        $('#confirmationModal').modal('hide');
     });
   });
 </script>
