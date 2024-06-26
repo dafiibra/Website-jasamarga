@@ -174,12 +174,28 @@
       var data = $('#table').DataTable().row($(this).closest('tr')).data(); // Get data of the clicked row
       var id_deteksi = data.id_deteksi; // Access the id_deteksi from the row data
       $('#updateId').val(id_deteksi);
+      
+      // Log activity when update button is clicked
+      axios.post('{{ route('log.activity') }}', {
+          activity_name: 'History Update Button Clicked',
+          id_deteksi: id_deteksi,
+          _token: csrfToken
+      })
+      .then(response => {
+          console.log('Activity logged successfully');
+      })
+      .catch(error => {
+          console.error('Error logging activity:', error);
+      });
+      
       $('#updateModal').modal('show');
     });
 
     $('#updateForm').on('submit', function(e) {
       e.preventDefault();
       var formData = new FormData($('#updateForm')[0]);
+      var id_deteksi = $('#updateId').val();
+      
       $.ajax({
         type: 'POST',
         url: '{{ route("history.update") }}',
@@ -187,6 +203,19 @@
         processData: false,
         contentType: false,
         success: function(response) {
+          // Log activity when update is confirmed
+          axios.post('{{ route('log.activity') }}', {
+              activity_name: 'History Update Confirmed',
+              id_deteksi: id_deteksi,
+              _token: csrfToken
+          })
+          .then(response => {
+              console.log('Activity logged successfully');
+          })
+          .catch(error => {
+              console.error('Error logging activity:', error);
+          });
+          
           $('#updateModal').modal('hide');
           $('#table').DataTable().ajax.reload();
         },
@@ -258,6 +287,5 @@
     });
   
   });
-  
 </script>  
 @endsection
