@@ -7,9 +7,19 @@ use App\Models\inspektor;
 use App\Models\LogActivity;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
+    public function index()
+    {
+        $registrationRequests = DB::table('inspektor')->where('status', 'requested')->get();
+        $approvedUsers = DB::table('inspektor')->where('status', 'approved')->get();
+        $loginActivities = DB::table('log_activity')->orderBy('login_time', 'desc')->take(10)->get();
+
+        return view('usermanage/user', compact('registrationRequests', 'approvedUsers', 'loginActivities'));
+    }
+
     public function approve($username)
     {
         $user = session('user');
@@ -20,11 +30,7 @@ class AdminController extends Controller
         $inspektor->accepted_timestamp = now();
         $inspektor->save();
 
-        Log::info('Inspektor before save:', $inspektor->toArray()); // Log model before save
-        $inspektor->save();
-        Log::info('Inspektor after save:', $inspektor->toArray()); // Log model after save
-
-        return response()->json(['message' => 'User approved']);
+        return redirect()->back();
     }
 
     public function reject($id)
@@ -37,18 +43,18 @@ class AdminController extends Controller
         $inspektor->rejected_timestamp = now();
         $inspektor->save();
 
-        Log::info('Inspektor before save:', $inspektor->toArray()); // Log model before save
-        $inspektor->save();
-        Log::info('Inspektor after save:', $inspektor->toArray()); // Log model after save
-
-
-        return response()->json(['message' => 'User rejected']);
+        return redirect()->back();
     }
 
-    public function viewUsers()
+    public function delete($id)
     {
-        $users = inspektor::where('status', 'approved')->get();
-        return response()->json($users);
+        $user = session('user');
+        Log::info('User from session:', (array) $user); // Log session content
+        $inspektor = inspektor::findOrFail($id);
+        $inspektor->status = 'rejected';
+        $inspektor->save();
+        
+        return redirect()->back();
     }
 
     public function viewLoginActivity()
