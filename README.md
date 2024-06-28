@@ -10,7 +10,6 @@ Before running the program, ensure the following configurations and installation
 
 Uncomment the following lines in your `php.ini` file:
 
-ini
 extension=gd
 extension=zip
 
