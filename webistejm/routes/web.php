@@ -1,18 +1,19 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ValidationController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ForgetPasswordManager;
 use App\Http\Controllers\HistoryController;
-use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\LogActivityController;
 
-
-Route::middleware("auth")->group(function(){
-    Route::view("/","Welcome")->name("dashboard");
+Route::middleware(['auth:inspektor,admin'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });
+
+Route::redirect('/', '/login');
 
 //Dashboard
 Route::middleware(['check.session'])->group(function () {
@@ -20,7 +21,7 @@ Route::middleware(['check.session'])->group(function () {
     Route::post('/log-activity', [LogActivityController::class, 'store'])->name('log.activity');
 
     //Dashboard
-    Route::get('/dashboard', [DashboardController::class, 'index']);
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/dashboard/filter', [DashboardController::class, 'filterData'])->name('dashboard.filter');
 
     //Validation
@@ -51,7 +52,7 @@ Route::post('/reset-password', [ForgetPasswordManager::class, "resetPasswordPost
 // logout
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('/user', [UserManagementController::class, 'index'])->name('user-management')->middleware('auth.admin');
-Route::get('/approve-user/{id}', [UserManagementController::class, 'approveUser'])->name('approve-user')->middleware('auth.admin');
-Route::get('/reject-user/{id}', [UserManagementController::class, 'rejectUser'])->name('reject-user')->middleware('auth.admin');
-Route::get('/view-user/{id}', [UserManagementController::class, 'viewUser'])->name('view-user')->middleware('auth.admin');
+Route::get('/user', [AdminController::class, 'index'])->name('user-management')->middleware('auth.admin');
+Route::get('/approve-user/{id}', [AdminController::class, 'approve'])->name('approve-user')->middleware('auth.admin');
+Route::get('/reject-user/{id}', [AdminController::class, 'reject'])->name('reject-user')->middleware('auth.admin');
+Route::get('/delete-user/{id}', [AdminController::class, 'delete'])->name('delete-user')->middleware('auth.admin');
