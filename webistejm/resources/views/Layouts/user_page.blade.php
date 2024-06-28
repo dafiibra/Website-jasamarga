@@ -67,6 +67,16 @@
     <!-- Custom Script -->
     <script src="{{asset('dashboard.js')}}"></script>
     @include('layouts.logging')
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const toggleButton = document.querySelector('.toggle-btn');
+        const sidebar = document.getElementById('sidebar');
+
+        toggleButton.addEventListener('click', function() {
+            sidebar.classList.toggle('expand');
+        });
+    });
+    </script>
 </body>
 
 </html>
